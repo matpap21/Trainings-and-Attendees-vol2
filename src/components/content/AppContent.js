@@ -5,12 +5,16 @@ import TrainingsList from "./trainings/TrainingsList";
 import TrainingsForm from "./trainings/TrainingsForm";
 import AttendeesList from "./attendees/AttendeesList";
 import AttendeesForm from "./attendees/AttendeesForm";
+import TrainingDetails from "./trainings/details/TrainingDetails";
 
 
 const AppContent = () => {
     return (
         <div className={classes.AppContent}>
             <Switch>
+                <Route path={'/trainings/details/:trainingId'}>
+                    <TrainingDetails/>
+                </Route>
                 <Route path={'/trainings/add'}>
                     <TrainingsForm/>
                 </Route>

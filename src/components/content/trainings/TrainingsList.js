@@ -1,13 +1,12 @@
 import CardComponent from "../../CardComponent";
-import classes from './TrainingsList.module.css'
-import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
+import classes from './TrainingsList.module.css';
 import {Link} from "react-router-dom";
+import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-
 const TrainingsList = () => {
-    const [rows, setRows] = useState([]); /*inicjalny stan wierzy zeby tablica byla pusta a zdefiniowana*/
+    const [rows, setRows] = useState([]);
 
     const pullRecordsFromDatabaseServer = () => {
         axios.get("http://localhost:8080/trainings")
@@ -23,11 +22,7 @@ const TrainingsList = () => {
             });
     }
 
-    useEffect(() => {
-        pullRecordsFromDatabaseServer();
-    }, [])
-
-    function handleRemoveRecord(row) {
+    const handleRemoveRecord = (row) => {
         axios.delete("http://localhost:8080/trainings/" + row.id)
             .then((data) => {
                 console.log("Otrzymaliśmy sukces odpowiedź!");
@@ -37,6 +32,10 @@ const TrainingsList = () => {
                 console.log("Otrzymaliśmy odpowiedź o błędzie!");
             });
     }
+
+    useEffect(() => {
+        pullRecordsFromDatabaseServer();
+    }, [])
 
     return (
         <div>
@@ -73,16 +72,16 @@ const TrainingsList = () => {
                                         <TableCell align="right">{row.name}</TableCell>
                                         <TableCell align="right">{row.trainer}</TableCell>
                                         <TableCell align="right">{row.dateStart}</TableCell>
+                                        <TableCell align="right">{row.length}</TableCell>
                                         <TableCell align="right">
-                                            <Button onClick={() => {handleRemoveRecord(row)}}>Delete</Button>
+                                            <Button onClick={()=> {handleRemoveRecord(row)}}>Delete</Button>
                                         </TableCell>
+                                        <TableCell align="right">Edit</TableCell>
                                         <TableCell align="right">
-                                            <Button onClick={handleRemoveRecord}>Edit</Button>
+                                            <Link to={`/trainings/details/${row.id}`} className={classes.TrainingsAddButton}>
+                                                <Button>Details</Button>
+                                            </Link>
                                         </TableCell>
-                                        <TableCell align="right">
-                                            <Button onClick={handleRemoveRecord}>Details</Button>
-                                        </TableCell>
-
                                     </TableRow>
                                 ))}
                             </TableBody>

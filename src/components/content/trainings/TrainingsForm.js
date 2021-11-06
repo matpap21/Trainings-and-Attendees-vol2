@@ -13,7 +13,6 @@ const getDateStringFromDateObject = (dateObject) => {
     let mo = new Intl.DateTimeFormat('en', {month: 'numeric'}).format(dateObject);
     let da = new Intl.DateTimeFormat('en', {day: '2-digit'}).format(dateObject);
 
-
     return `${ye}-${mo}-${da}`
 }
 
