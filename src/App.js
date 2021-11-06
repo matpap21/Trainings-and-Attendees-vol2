@@ -1,25 +1,28 @@
 import logo from './logo.svg';
-import './App.css';
+import classes from './App.module.css';
+import {BrowserRouter as Router} from "react-router-dom";
+import AppHeader from "./components/header/AppHeader";
+import AppContent from "./components/content/AppContent";
 
+/* wrzucamy te package ponizej do zainstalowania
+*
+*npm install --save axios
+npm install --save react-router-dom
+npm install --save @material-ui/core
+npm install --save @material-ui/icons
+npm install --save react-bootstrap bootstrap@5.1.3
+ */
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className={classes.App}>
+            <Router>
+                <AppHeader/>
+                <AppContent>
+
+                </AppContent>
+            </Router>
+        </div>
+    );
 }
 
 export default App;
