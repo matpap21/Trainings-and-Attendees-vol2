@@ -4,12 +4,15 @@ import {Link, useParams} from "react-router-dom";
 import {Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import AttendeesTable from "../../attendees/AttendeesTable";
 
 const TrainingDetails = () => {
     const {trainingId} = useParams();
-    const [training, setTraining] = useState({});
+    const [training, setTraining] = useState({
+        'attendees': [],
+    });
 
-    useEffect(() => {
+    const pullRecords = () => {
         axios.get(`http://localhost:8080/trainings/${trainingId}`)
             .then((data) => {
                 // data ma pole data
@@ -21,6 +24,10 @@ const TrainingDetails = () => {
             .catch((error) => {
                 console.log("Otrzymaliśmy odpowiedź o błędzie!")
             });
+    }
+
+    useEffect(() => {
+        pullRecords();
     }, []);
 
     return (
@@ -52,11 +59,13 @@ const TrainingDetails = () => {
                         {training.length}
                     </Grid>
                 </Grid>
-
-                <CardComponent title={'Training Attendees'}>
-
-                </CardComponent>
             </CardComponent>
+            <div className={classes.AddButtonContainer}>
+                <Link to={`/trainings/add/attendee/${training.id}`} className={classes.TrainingsAddButton}>
+                    <Button variant="outlined">Manage Attendees</Button>
+                </Link>
+            </div>
+            <AttendeesTable rows={training.attendees} hideDelete ={true} refreshData={pullRecords}/>
         </div>
     )
 }

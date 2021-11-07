@@ -5,8 +5,9 @@ import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, T
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+/*useState to poczatkowy stan */
 const TrainingsList = () => {
-    const [rows, setRows] = useState([]);
+    const [rows, setRows] = useState([]); /*rows, setRows jest obiektem klasy np Studenta, inicjalna pusta lista*/
 
     const pullRecordsFromDatabaseServer = () => {
         axios.get("http://localhost:8080/trainings")
@@ -33,9 +34,9 @@ const TrainingsList = () => {
             });
     }
 
-    useEffect(() => {
+    useEffect(() => { /* useEffect- wywolanie statycznej metody, moze byc na 3 sposoby triggerowania bez parametwo, albo zostawic puste, albo mozna konkretne wskazac kokretna zmiennea*/
         pullRecordsFromDatabaseServer();
-    }, [])
+    }, []) /*to sie wykonuje tak cesto jak czesto zmieniaja sie obiekty, w tym przypadku uruchiamia sie tylko przy dowolnej zmianie zmiannej w calym obiekcie*/
 
     return (
         <div>
